@@ -1,6 +1,5 @@
 package com.tw.booking.order.common
 
-import android.util.Log
 import kotlinx.coroutines.delay
 import java.io.IOException
 
@@ -16,7 +15,7 @@ suspend fun <T> retryIO(
         try {
             return block()
         } catch (e: IOException) {
-           println("${e.message}")
+            println("${e.message}")
         }
         delay(currentDelay)
         currentDelay = (currentDelay * factor).toLong().coerceAtMost(maxDelay)
