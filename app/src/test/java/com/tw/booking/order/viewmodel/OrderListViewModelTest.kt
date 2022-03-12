@@ -40,8 +40,18 @@ class OrderListViewModelTest {
     fun should_return_success_status_when_ids_valid() {
         coEvery { orderService.refundTicket(any(), any()) } returns RefundTicketStatus.SUCCESS
         coroutinesTestRule.testDispatcher.runBlockingTest {
-            viewModel.refundTicket(1)
+            viewModel.refundTicket(0)
             assertEquals(RefundTicketStatus.SUCCESS, viewModel._refundTicketStatus.value)
+        }
+    }
+
+    @ExperimentalCoroutinesApi
+    @Test
+    fun should_return_fail_status_when_return_fail() {
+        coEvery { orderService.refundTicket(any(), any()) } returns RefundTicketStatus.FAILURE
+        coroutinesTestRule.testDispatcher.runBlockingTest {
+            viewModel.refundTicket(0)
+            assertEquals(RefundTicketStatus.FAILURE, viewModel._refundTicketStatus.value)
         }
     }
 }
