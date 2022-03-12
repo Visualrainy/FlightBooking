@@ -6,6 +6,9 @@ mockserver
         function () {
             console.log("started MockServer");
             refundTicket();
+            refundTicketWithInvalidOrderId();
+            refundTicketWithInvalidTicketId();
+            refundTicketWithRefundMultiTimes();
         },
         function (error) {
             console.log(JSON.stringify(error, null, "  "));
@@ -25,6 +28,81 @@ function refundTicket() {
                 "body": {
                     "code": 200,
                     "message": "success"
+                }
+            }
+        })
+        .then(
+            function () {
+                console.log("refundTicket expectation created");
+            },
+            function (error) {
+                console.log(error);
+            }
+        );
+}
+
+function refundTicketWithInvalidOrderId() {
+    var mockServerClient = require('mockserver-client').mockServerClient;
+    mockServerClient("localhost", 1080)
+        .mockAnyResponse({
+            "httpRequest": {
+                "method": "POST",
+                "path": "/booking-orders/abc/tickets/654321/refund"
+            },
+            "httpResponse": {
+                "body": {
+                    "code": 10000,
+                    "message": "fail"
+                }
+            }
+        })
+        .then(
+            function () {
+                console.log("refundTicket expectation created");
+            },
+            function (error) {
+                console.log(error);
+            }
+        );
+}
+
+function refundTicketWithInvalidTicketId() {
+    var mockServerClient = require('mockserver-client').mockServerClient;
+    mockServerClient("localhost", 1080)
+        .mockAnyResponse({
+            "httpRequest": {
+                "method": "POST",
+                "path": "/booking-orders/123456/tickets/abc/refund"
+            },
+            "httpResponse": {
+                "body": {
+                    "code": 10001,
+                    "message": "fail"
+                }
+            }
+        })
+        .then(
+            function () {
+                console.log("refundTicket expectation created");
+            },
+            function (error) {
+                console.log(error);
+            }
+        );
+}
+
+function refundTicketWithRefundMultiTimes() {
+    var mockServerClient = require('mockserver-client').mockServerClient;
+    mockServerClient("localhost", 1080)
+        .mockAnyResponse({
+            "httpRequest": {
+                "method": "POST",
+                "path": "/booking-orders/12345/tickets/54321/refund"
+            },
+            "httpResponse": {
+                "body": {
+                    "code": 10002,
+                    "message": "fail"
                 }
             }
         })

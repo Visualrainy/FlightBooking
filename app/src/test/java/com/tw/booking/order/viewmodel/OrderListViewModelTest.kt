@@ -54,4 +54,14 @@ class OrderListViewModelTest {
             assertEquals(RefundTicketStatus.FAILURE, viewModel._refundTicketStatus.value)
         }
     }
+
+    @ExperimentalCoroutinesApi
+    @Test
+    fun should_return_fail_status_when_return_param_invalid() {
+        coEvery { orderService.refundTicket(any(), any()) } returns RefundTicketStatus.PARAM_INVALID
+        coroutinesTestRule.testDispatcher.runBlockingTest {
+            viewModel.refundTicket(0)
+            assertEquals(RefundTicketStatus.PARAM_INVALID, viewModel._refundTicketStatus.value)
+        }
+    }
 }

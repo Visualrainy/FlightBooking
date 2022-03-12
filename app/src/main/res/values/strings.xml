@@ -5,4 +5,5 @@
     <string name="ticket_refunded">已退票</string>
     <string name="ticket_refund">退票</string>
     <string name="refund_fail_tips">退票失败，请联系客服人工退票</string>
+    <string name="refund_invalid">订单号或机票无效，请重新确认</string>
 </resources>

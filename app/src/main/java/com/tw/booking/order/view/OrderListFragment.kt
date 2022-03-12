@@ -44,6 +44,11 @@ class OrderListFragment : Fragment() {
                     getString(R.string.refund_fail_tips),
                     Toast.LENGTH_SHORT
                 ).show()
+                RefundTicketStatus.PARAM_INVALID -> Toast.makeText(
+                    requireContext(),
+                    getString(R.string.refund_invalid),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }

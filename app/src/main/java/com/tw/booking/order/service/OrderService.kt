@@ -10,7 +10,11 @@ class OrderService @Inject constructor(private val orderRepository: OrderReposit
     suspend fun refundTicket(orderId: String, ticketId: String): RefundTicketStatus {
         return try {
             val result = retryIO(times = 3) { orderRepository.refundTicket(orderId, ticketId) }
-            if (result.code == 200) RefundTicketStatus.SUCCESS else RefundTicketStatus.FAILURE
+            when(result.code) {
+                200 -> RefundTicketStatus.SUCCESS
+                10000 -> RefundTicketStatus.PARAM_INVALID
+                else -> RefundTicketStatus.FAILURE
+            }
         } catch (e: IOException) {
             RefundTicketStatus.FAILURE
         }
