@@ -12,7 +12,7 @@ suspend fun <T> retryIO(
     block: suspend () -> T
 ): T {
     var currentDelay = initialDelay
-    repeat(times - 1) {
+    repeat(times) {
         try {
             return block()
         } catch (e: IOException) {
