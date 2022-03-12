@@ -12,7 +12,7 @@ class OrderService @Inject constructor(private val orderRepository: OrderReposit
             val result = retryIO(times = 3) { orderRepository.refundTicket(orderId, ticketId) }
             when(result.code) {
                 200 -> RefundTicketStatus.SUCCESS
-                10000 -> RefundTicketStatus.PARAM_INVALID
+                10000, 10001 -> RefundTicketStatus.PARAM_INVALID
                 else -> RefundTicketStatus.FAILURE
             }
         } catch (e: IOException) {

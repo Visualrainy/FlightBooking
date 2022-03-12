@@ -38,4 +38,12 @@ class OrderRepositoryTest {
             assertEquals(10000, result.code)
         }
     }
+
+    @Test
+    fun should_return_refund_fail_when_ticket_id_invalid() {
+        runBlocking {
+            val result = repository.refundTicket("123456", "abc")
+            assertEquals(10001, result.code)
+        }
+    }
 }
