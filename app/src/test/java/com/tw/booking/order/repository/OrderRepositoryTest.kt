@@ -46,4 +46,12 @@ class OrderRepositoryTest {
             assertEquals(10001, result.code)
         }
     }
+
+    @Test
+    fun should_return_refund_fail_when_refund_ticket_multi_times() {
+        runBlocking {
+            val result = repository.refundTicket("12345", "54321")
+            assertEquals(10002, result.code)
+        }
+    }
 }

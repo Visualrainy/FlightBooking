@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OrderListViewModel @Inject constructor() : ViewModel() {
-    private val orders = listOf(Order("abc", listOf(Ticket("654321"))))
+    private val orders = listOf(Order("12345", listOf(Ticket("54321"))))
 
     @Inject
     lateinit var orderService: OrderService

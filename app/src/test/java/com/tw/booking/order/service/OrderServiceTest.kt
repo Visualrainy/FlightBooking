@@ -52,6 +52,15 @@ class OrderServiceTest {
     }
 
     @Test
+    fun should_return_status_fail_when_code_is_10002() {
+        coEvery { orderRepository.refundTicket("12345", "54321") } returns ResponseWrapper(10002, "success", null)
+        runBlocking {
+            val status = orderService.refundTicket("12345", "54321")
+            assertEquals(RefundTicketStatus.REPEAT_REFUND, status)
+        }
+    }
+
+    @Test
     fun should_retry_success_when_doing_first_time() {
         runBlocking {
             coEvery { orderRepository.refundTicket("123456", "654321") } throws IOException() andThen ResponseWrapper(
