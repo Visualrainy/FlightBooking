@@ -14,9 +14,9 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class OrderDetailViewModelTest {
+class OrderListViewModelTest {
 
-    private lateinit var viewModel: OrderDetailViewModel
+    private lateinit var viewModel: OrderListViewModel
 
     @ExperimentalCoroutinesApi
     @get:Rule
@@ -31,7 +31,7 @@ class OrderDetailViewModelTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        viewModel = OrderDetailViewModel()
+        viewModel = OrderListViewModel()
         viewModel.orderService = orderService
     }
 

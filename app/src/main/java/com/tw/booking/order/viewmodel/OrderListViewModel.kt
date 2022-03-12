@@ -9,7 +9,7 @@ import com.tw.booking.order.service.OrderService
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class OrderDetailViewModel : ViewModel() {
+class OrderListViewModel : ViewModel() {
 
     @Inject
     lateinit var orderService: OrderService
