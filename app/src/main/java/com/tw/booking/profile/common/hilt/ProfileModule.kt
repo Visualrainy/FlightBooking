@@ -1,4 +1,4 @@
-package com.tw.booking.profile.hilt
+package com.tw.booking.profile.common.hilt
 
 import com.tw.booking.profile.repository.ProfileApi
 import dagger.Module
