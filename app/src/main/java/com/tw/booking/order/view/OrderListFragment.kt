@@ -39,6 +39,9 @@ class OrderListFragment : Fragment() {
         binding?.viewModel = viewModel
         viewModel.refundTicketStatus.observe(this) {
             when (it) {
+                RefundTicketStatus.SUCCESS -> {
+                    binding?.refund?.text = getString(R.string.ticket_refunded)
+                }
                 RefundTicketStatus.FAILURE -> Toast.makeText(
                     requireContext(),
                     getString(R.string.refund_fail_tips),

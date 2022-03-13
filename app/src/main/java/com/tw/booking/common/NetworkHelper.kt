@@ -1,4 +1,4 @@
-package com.tw.booking.order.common
+package com.tw.booking.common
 
 import kotlinx.coroutines.delay
 import java.io.IOException
