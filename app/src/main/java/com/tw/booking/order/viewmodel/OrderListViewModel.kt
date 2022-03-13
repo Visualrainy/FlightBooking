@@ -19,14 +19,14 @@ class OrderListViewModel @Inject constructor() : ViewModel() {
     @Inject
     lateinit var orderService: OrderService
 
-    private val refundTicketStatus = MutableLiveData<RefundTicketStatus>()
-    val _refundTicketStatus: LiveData<RefundTicketStatus> = refundTicketStatus
+    private val _refundTicketStatus = MutableLiveData<RefundTicketStatus>()
+    val refundTicketStatus: LiveData<RefundTicketStatus> = _refundTicketStatus
 
     fun refundTicket(index: Int) {
         viewModelScope.launch {
             val activeOrder = orders[0]
             val refundTicket = orderService.refundTicket(activeOrder.id, activeOrder.tickets[index].id)
-            refundTicketStatus.postValue(refundTicket)
+            _refundTicketStatus.postValue(refundTicket)
         }
     }
 }

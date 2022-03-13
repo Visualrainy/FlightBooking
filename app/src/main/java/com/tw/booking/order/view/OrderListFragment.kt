@@ -37,7 +37,7 @@ class OrderListFragment : Fragment() {
     private fun initViewModel() {
         binding?.lifecycleOwner = viewLifecycleOwner
         binding?.viewModel = viewModel
-        viewModel._refundTicketStatus.observe(this) {
+        viewModel.refundTicketStatus.observe(this) {
             when (it) {
                 RefundTicketStatus.FAILURE -> Toast.makeText(
                     requireContext(),

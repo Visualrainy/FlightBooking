@@ -1,6 +1,7 @@
 package com.tw.booking.profile.service
 
 import com.tw.booking.order.repository.model.ResponseWrapper
+import com.tw.booking.profile.model.ConsumptionsStatus
 import com.tw.booking.profile.repository.ProfileRepository
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -24,12 +25,12 @@ class ProfileServiceTest {
     }
 
     @Test
-    fun should_return_status_success_when_code_is_200() {
+    fun should_return_empty_when_id_is_1234() {
         coEvery { profileRepository.consumptions("1234") } returns ResponseWrapper(200, "success", emptyList())
         runBlocking {
             val result = profileService.consumptions("1234")
-            assertEquals(0, result.data?.size)
-            assertEquals(200, result.code)
+            assertEquals(0, result.second?.size)
+            assertEquals(ConsumptionsStatus.SUCCESS, result.first)
         }
     }
 }

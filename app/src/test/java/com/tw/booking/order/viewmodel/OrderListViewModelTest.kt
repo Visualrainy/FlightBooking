@@ -41,7 +41,7 @@ class OrderListViewModelTest {
         coEvery { orderService.refundTicket(any(), any()) } returns RefundTicketStatus.SUCCESS
         coroutinesTestRule.testDispatcher.runBlockingTest {
             viewModel.refundTicket(0)
-            assertEquals(RefundTicketStatus.SUCCESS, viewModel._refundTicketStatus.value)
+            assertEquals(RefundTicketStatus.SUCCESS, viewModel.refundTicketStatus.value)
         }
     }
 
@@ -51,7 +51,7 @@ class OrderListViewModelTest {
         coEvery { orderService.refundTicket(any(), any()) } returns RefundTicketStatus.FAILURE
         coroutinesTestRule.testDispatcher.runBlockingTest {
             viewModel.refundTicket(0)
-            assertEquals(RefundTicketStatus.FAILURE, viewModel._refundTicketStatus.value)
+            assertEquals(RefundTicketStatus.FAILURE, viewModel.refundTicketStatus.value)
         }
     }
 
@@ -61,7 +61,7 @@ class OrderListViewModelTest {
         coEvery { orderService.refundTicket(any(), any()) } returns RefundTicketStatus.PARAM_INVALID
         coroutinesTestRule.testDispatcher.runBlockingTest {
             viewModel.refundTicket(0)
-            assertEquals(RefundTicketStatus.PARAM_INVALID, viewModel._refundTicketStatus.value)
+            assertEquals(RefundTicketStatus.PARAM_INVALID, viewModel.refundTicketStatus.value)
         }
     }
 
@@ -71,7 +71,7 @@ class OrderListViewModelTest {
         coEvery { orderService.refundTicket(any(), any()) } returns RefundTicketStatus.REPEAT_REFUND
         coroutinesTestRule.testDispatcher.runBlockingTest {
             viewModel.refundTicket(0)
-            assertEquals(RefundTicketStatus.REPEAT_REFUND, viewModel._refundTicketStatus.value)
+            assertEquals(RefundTicketStatus.REPEAT_REFUND, viewModel.refundTicketStatus.value)
         }
     }
 }
