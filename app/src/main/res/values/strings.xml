@@ -8,4 +8,8 @@
     <string name="refund_invalid">订单号或机票无效，请重新确认</string>
     <string name="repeat_refund">退票进行中，请稍等</string>
     <string name="empty_order">当前暂无订单</string>
+    <string name="pay_amount">金额:%d</string>
+    <string name="pay_time">支付时间:%s</string>
+    <string name="flight_number">航班号:%s</string>
+    <string name="departure_arrival">%s - %s</string>
 </resources>

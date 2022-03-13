@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.tw.booking.profile.model.Flight" />
+
+        <variable
+            name="consumption"
+            type="com.tw.booking.profile.model.Consumption" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="6dp"
+        tools:context=".profile.view.ConsumptionsFragment">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/plane"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/plane"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/pay_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@{String.format(@string/pay_amount, consumption.amount)}"
+            app:layout_constraintStart_toEndOf="@id/plane"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="金额：1200" />
+
+        <TextView
+            android:id="@+id/pay_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.format(@string/pay_time, consumption.payTime)}"
+            app:layout_constraintStart_toEndOf="@id/plane"
+            app:layout_constraintTop_toBottomOf="@id/pay_amount"
+            tools:text="支付时间：2022-03-12: 15:30:00" />
+
+        <TextView
+            android:id="@+id/flight_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.format(@string/flight_number, consumption.flight.number)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="航班号: MU-666" />
+
+        <TextView
+            android:id="@+id/departure_arrival"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.format(@string/departure_arrival, consumption.flight.departure, consumption.flight.arrival)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/flight_number"
+            tools:text="成都 -- 上海" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
