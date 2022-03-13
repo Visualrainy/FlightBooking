@@ -9,6 +9,9 @@ mockserver
             refundTicketWithInvalidOrderId();
             refundTicketWithInvalidTicketId();
             refundTicketWithRefundMultiTimes();
+            noConsumptions();
+            singleConsumptions();
+            multiConsumptions();
         },
         function (error) {
             console.log(JSON.stringify(error, null, "  "));
@@ -103,6 +106,128 @@ function refundTicketWithRefundMultiTimes() {
                 "body": {
                     "code": 10002,
                     "message": "fail"
+                }
+            }
+        })
+        .then(
+            function () {
+                console.log("refundTicket expectation created");
+            },
+            function (error) {
+                console.log(error);
+            }
+        );
+}
+
+function noConsumptions() {
+    var mockServerClient = require('mockserver-client').mockServerClient;
+    mockServerClient("localhost", 1080)
+        .mockAnyResponse({
+            "httpRequest": {
+                "method": "GET",
+                "path": "/precharge-contracts/1234/consumptions"
+            },
+            "httpResponse": {
+                "body": {
+                    "code": 200,
+                    "data": [],
+                    "message": "success"
+                }
+            }
+        })
+        .then(
+            function () {
+                console.log("refundTicket expectation created");
+            },
+            function (error) {
+                console.log(error);
+            }
+        );
+}
+
+function singleConsumptions() {
+    var mockServerClient = require('mockserver-client').mockServerClient;
+    mockServerClient("localhost", 1080)
+        .mockAnyResponse({
+            "httpRequest": {
+                "method": "GET",
+                "path": "/precharge-contracts/12345/consumptions"
+            },
+            "httpResponse": {
+                "body": {
+                    "code": 200,
+                    "data": [
+                        {
+                            "cid": "111",
+                            "amount": 1000,
+                            "payTime": "2022-03-12",
+                            "flight": {
+                                "number": "MU-666",
+                                "departure": "成都",
+                                "arrival": "上海",
+                                "departureTime": "2022-03-13",
+                            }
+                        }
+                    ],
+                    "message": "success"
+                }
+            }
+        })
+        .then(
+            function () {
+                console.log("refundTicket expectation created");
+            },
+            function (error) {
+                console.log(error);
+            }
+        );
+}
+
+function multiConsumptions() {
+    var mockServerClient = require('mockserver-client').mockServerClient;
+    mockServerClient("localhost", 1080)
+        .mockAnyResponse({
+            "httpRequest": {
+                "method": "GET",
+                "path": "/precharge-contracts/123456/consumptions"
+            },
+            "httpResponse": {
+                "body": {
+                    "code": 200,
+                    "data": [
+                        {
+                            "cid": "111",
+                            "amount": 1000,
+                            "payTime": "2022-03-12",
+                            "flight": {
+                                "number": "MU-666",
+                                "departure": "成都",
+                                "arrival": "上海",
+                                "departureTime": "2022-03-13",
+                            }
+                        },{
+                            "cid": "222",
+                            "amount": 1200,
+                            "payTime": "2022-03-12",
+                            "flight": {
+                                "number": "MU-228",
+                                "departure": "上海",
+                                "arrival": "成都",
+                                "departureTime": "2022-03-16",
+                            }
+                        },{
+                            "cid": "5555",
+                            "amount": 1500,
+                            "payTime": "2022-03-12",
+                            "flight": {
+                                "number": "MU-866",
+                                "departure": "上海",
+                                "arrival": "北京",
+                                "departureTime": "2022-03-17",
+                            }
+                        }
+                    ],
+                    "message": "success"
                 }
             }
         })

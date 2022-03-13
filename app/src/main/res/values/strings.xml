@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">FlightBooking</string>
     <string name="title_order">Orders</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_dashboard">Consumptions</string>
     <string name="ticket_refunded">已退票</string>
     <string name="ticket_refund">退票</string>
     <string name="refund_fail_tips">退票失败，请联系客服人工退票</string>
