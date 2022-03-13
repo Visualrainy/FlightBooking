@@ -12,6 +12,7 @@ mockserver
             noConsumptions();
             singleConsumptions();
             multiConsumptions();
+            invalidIdConsumptions();
         },
         function (error) {
             console.log(JSON.stringify(error, null, "  "));
@@ -228,6 +229,31 @@ function multiConsumptions() {
                         }
                     ],
                     "message": "success"
+                }
+            }
+        })
+        .then(
+            function () {
+                console.log("refundTicket expectation created");
+            },
+            function (error) {
+                console.log(error);
+            }
+        );
+}
+
+function invalidIdConsumptions() {
+    var mockServerClient = require('mockserver-client').mockServerClient;
+    mockServerClient("localhost", 1080)
+        .mockAnyResponse({
+            "httpRequest": {
+                "method": "GET",
+                "path": "/precharge-contracts/abc/consumptions"
+            },
+            "httpResponse": {
+                "body": {
+                    "code": 10000,
+                    "message": "fail"
                 }
             }
         })

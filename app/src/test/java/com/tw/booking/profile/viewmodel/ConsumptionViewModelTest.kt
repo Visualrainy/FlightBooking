@@ -96,4 +96,18 @@ class ConsumptionViewModelTest {
             assertEquals(1, viewModel.consumptions.value?.second?.size)
         }
     }
+
+    @ExperimentalCoroutinesApi
+    @Test
+    fun should_return_fail_when_id_abc() {
+        coEvery { profileService.consumptions("abc") } returns Pair<ConsumptionsStatus, List<Consumption>?>(
+            ConsumptionsStatus.PARAM_INVALID,
+            null
+        )
+
+        coroutinesTestRule.testDispatcher.runBlockingTest {
+            viewModel.fetchConsumptions("abc")
+            assertEquals(ConsumptionsStatus.PARAM_INVALID, viewModel.consumptions.value?.first)
+        }
+    }
 }

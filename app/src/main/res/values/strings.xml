@@ -12,4 +12,5 @@
     <string name="pay_time">支付时间:%s</string>
     <string name="flight_number">航班号:%s</string>
     <string name="departure_arrival">%s - %s</string>
+    <string name="invalid_param_tips">非法查询，请重新登录</string>
 </resources>

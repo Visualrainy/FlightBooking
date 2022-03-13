@@ -49,4 +49,12 @@ class ProfileRepositoryTest {
             assertEquals(1, consumptions.data?.size)
         }
     }
+
+    @Test
+    fun should_return_fail_with_invalid_id() {
+        runBlocking {
+            val consumptions = repository.consumptions("abc")
+            assertEquals(10000, consumptions.code)
+        }
+    }
 }

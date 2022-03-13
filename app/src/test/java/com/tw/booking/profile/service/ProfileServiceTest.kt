@@ -56,6 +56,7 @@ class ProfileServiceTest {
             assertEquals(ConsumptionsStatus.SUCCESS, result.first)
         }
     }
+
     @Test
     fun should_return_single_consumption_when_id_is_12345() {
         val firstConsumption = Consumption(
@@ -73,4 +74,12 @@ class ProfileServiceTest {
         }
     }
 
+    @Test
+    fun should_return_fail_when_id_is_abc() {
+        coEvery { profileRepository.consumptions("abc") } returns ResponseWrapper(10000, "fail", null)
+        runBlocking {
+            val result = profileService.consumptions("abc")
+            assertEquals(ConsumptionsStatus.PARAM_INVALID, result.first)
+        }
+    }
 }
