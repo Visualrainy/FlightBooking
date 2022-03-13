@@ -32,7 +32,7 @@ class ConsumptionsFragment : Fragment() {
     }
 
     private fun initData() {
-        viewModel.fetchConsumptions("1234")
+        viewModel.fetchConsumptions("123456")
     }
 
     private fun initViewModel() {

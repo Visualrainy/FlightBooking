@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.tw.booking.CoroutinesTestRule
 import com.tw.booking.profile.model.Consumption
 import com.tw.booking.profile.model.ConsumptionsStatus
+import com.tw.booking.profile.model.Flight
 import com.tw.booking.profile.service.ProfileService
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -38,7 +39,7 @@ class ConsumptionViewModelTest {
     @ExperimentalCoroutinesApi
     @Test
     fun should_return_empty_consumption_when_id_1234() {
-        coEvery { profileService.consumptions(any()) } returns Pair<ConsumptionsStatus, List<Consumption>?>(
+        coEvery { profileService.consumptions("1234") } returns Pair<ConsumptionsStatus, List<Consumption>?>(
             ConsumptionsStatus.SUCCESS,
             emptyList()
         )
@@ -47,6 +48,31 @@ class ConsumptionViewModelTest {
             viewModel.fetchConsumptions("1234")
             assertEquals(ConsumptionsStatus.SUCCESS, viewModel.consumptions.value?.first)
             assertEquals(0, viewModel.consumptions.value?.second?.size)
+        }
+    }
+
+    @ExperimentalCoroutinesApi
+    @Test
+    fun should_return_multi_consumptions_when_id_123456() {
+        val firstConsumption = Consumption(
+            "111", 1000, "2022-03-13",
+            Flight("", "", "", "")
+        )
+        val secondConsumption = Consumption(
+            "222", 1200, "2022-03-16",
+            Flight("", "", "", "")
+        )
+
+        val consumptions = listOf(firstConsumption, secondConsumption)
+        coEvery { profileService.consumptions("123456") } returns Pair<ConsumptionsStatus, List<Consumption>?>(
+            ConsumptionsStatus.SUCCESS,
+            consumptions
+        )
+
+        coroutinesTestRule.testDispatcher.runBlockingTest {
+            viewModel.fetchConsumptions("123456")
+            assertEquals(ConsumptionsStatus.SUCCESS, viewModel.consumptions.value?.first)
+            assertEquals(2, viewModel.consumptions.value?.second?.size)
         }
     }
 }
