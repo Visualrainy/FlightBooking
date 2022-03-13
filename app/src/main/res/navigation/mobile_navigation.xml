@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_main"
-        android:name="com.tw.booking.ui.main.MainFragment"
+        android:name="com.tw.booking.profile.view.ConsumptionsFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/main_fragment" />
+        tools:layout="@layout/consumptions_fragment" />
 </navigation>

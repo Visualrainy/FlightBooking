@@ -31,8 +31,7 @@ class ConsumptionViewModelTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        viewModel = ConsumptionViewModel()
-        viewModel.profileService = profileService
+        viewModel = ConsumptionViewModel(profileService)
     }
 
     @ExperimentalCoroutinesApi
