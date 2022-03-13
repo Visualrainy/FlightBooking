@@ -1,9 +1,9 @@
 package com.tw.booking.order.viewmodel
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.tw.booking.common.SingleLiveEvent
 import com.tw.booking.order.model.Order
 import com.tw.booking.order.model.RefundTicketStatus
 import com.tw.booking.order.model.Ticket
@@ -19,7 +19,7 @@ class OrderListViewModel @Inject constructor() : ViewModel() {
     @Inject
     lateinit var orderService: OrderService
 
-    private val _refundTicketStatus = MutableLiveData<RefundTicketStatus>()
+    private val _refundTicketStatus = SingleLiveEvent<RefundTicketStatus>()
     val refundTicketStatus: LiveData<RefundTicketStatus> = _refundTicketStatus
 
     fun refundTicket(index: Int) {
