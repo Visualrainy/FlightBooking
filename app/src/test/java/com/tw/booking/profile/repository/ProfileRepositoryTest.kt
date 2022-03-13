@@ -7,6 +7,7 @@ import com.tw.booking.profile.model.Flight
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.verify
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -43,6 +44,7 @@ class ProfileRepositoryTest {
             val consumptions = repository.consumptions("1234")
             assertEquals(200, consumptions.code)
             assertEquals(0, consumptions.data?.size)
+            verify { cacheRepository.saveConsumptions("1234", consumptions.data) }
         }
     }
 
@@ -53,6 +55,7 @@ class ProfileRepositoryTest {
             val consumptions = repository.consumptions("123456")
             assertEquals(200, consumptions.code)
             assertEquals(3, consumptions.data?.size)
+            verify { cacheRepository.saveConsumptions("123456", consumptions.data) }
         }
     }
 
@@ -63,6 +66,7 @@ class ProfileRepositoryTest {
             val consumptions = repository.consumptions("12345")
             assertEquals(200, consumptions.code)
             assertEquals(1, consumptions.data?.size)
+            verify { cacheRepository.saveConsumptions("12345", consumptions.data) }
         }
     }
 
