@@ -1,5 +1,8 @@
-package com.tw.booking.profile.repository
+package com.tw.booking.profile
 
+import com.tw.booking.profile.repository.ProfileApi
+import com.tw.booking.profile.repository.ProfileRemoteRepository
+import com.tw.booking.profile.repository.ProfileRepository
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -27,7 +30,8 @@ class ProfileRepositoryTest {
     fun should_return_no_consumptions_success_with_specific_id() {
         runBlocking {
             val consumptions = repository.consumptions("1234")
-            assertEquals(0, consumptions.data?.size ?: 1)
+            assertEquals(200, consumptions.code)
+            assertEquals(0, consumptions.data?.size)
         }
     }
 }
