@@ -56,4 +56,21 @@ class ProfileServiceTest {
             assertEquals(ConsumptionsStatus.SUCCESS, result.first)
         }
     }
+    @Test
+    fun should_return_single_consumption_when_id_is_12345() {
+        val firstConsumption = Consumption(
+            "111", 1000, "2022-03-13",
+            Flight("", "", "", "")
+        )
+
+        val consumptions = listOf(firstConsumption)
+
+        coEvery { profileRepository.consumptions("12345") } returns ResponseWrapper(200, "success", consumptions)
+        runBlocking {
+            val result = profileService.consumptions("12345")
+            assertEquals(1, result.second?.size)
+            assertEquals(ConsumptionsStatus.SUCCESS, result.first)
+        }
+    }
+
 }

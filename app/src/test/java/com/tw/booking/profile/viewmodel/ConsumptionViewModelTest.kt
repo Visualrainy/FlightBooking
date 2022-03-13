@@ -75,4 +75,25 @@ class ConsumptionViewModelTest {
             assertEquals(2, viewModel.consumptions.value?.second?.size)
         }
     }
+
+    @ExperimentalCoroutinesApi
+    @Test
+    fun should_return_single_consumption_when_id_12345() {
+        val firstConsumption = Consumption(
+            "111", 1000, "2022-03-13",
+            Flight("", "", "", "")
+        )
+
+        val consumptions = listOf(firstConsumption)
+        coEvery { profileService.consumptions("12345") } returns Pair<ConsumptionsStatus, List<Consumption>?>(
+            ConsumptionsStatus.SUCCESS,
+            consumptions
+        )
+
+        coroutinesTestRule.testDispatcher.runBlockingTest {
+            viewModel.fetchConsumptions("12345")
+            assertEquals(ConsumptionsStatus.SUCCESS, viewModel.consumptions.value?.first)
+            assertEquals(1, viewModel.consumptions.value?.second?.size)
+        }
+    }
 }

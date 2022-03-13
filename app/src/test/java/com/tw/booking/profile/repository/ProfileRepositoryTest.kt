@@ -40,4 +40,13 @@ class ProfileRepositoryTest {
             assertEquals(3, consumptions.data?.size)
         }
     }
+
+    @Test
+    fun should_return_single_consumption_success_with_specific_id() {
+        runBlocking {
+            val consumptions = repository.consumptions("12345")
+            assertEquals(200, consumptions.code)
+            assertEquals(1, consumptions.data?.size)
+        }
+    }
 }
