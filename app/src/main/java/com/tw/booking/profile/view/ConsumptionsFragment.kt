@@ -43,6 +43,8 @@ class ConsumptionsFragment : Fragment() {
             binding?.recycler?.adapter = ConsumptionsAdapter(it.second)
             if (it.first == ConsumptionsStatus.PARAM_INVALID) {
                 Toast.makeText(requireContext(), R.string.invalid_param_tips, Toast.LENGTH_SHORT).show()
+            } else if(it.first == ConsumptionsStatus.FAILURE) {
+                Toast.makeText(requireContext(), R.string.network_error, Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -52,6 +54,6 @@ class ConsumptionsFragment : Fragment() {
     }
 
     private fun initData() {
-        viewModel.fetchConsumptions("abc")
+        viewModel.fetchConsumptions("12345")
     }
 }

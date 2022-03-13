@@ -82,4 +82,13 @@ class ProfileServiceTest {
             assertEquals(ConsumptionsStatus.PARAM_INVALID, result.first)
         }
     }
+
+    @Test
+    fun should_return_fail_when_code_null() {
+        coEvery { profileRepository.consumptions("123") } returns ResponseWrapper(null, null, null)
+        runBlocking {
+            val result = profileService.consumptions("123")
+            assertEquals(ConsumptionsStatus.FAILURE, result.first)
+        }
+    }
 }
