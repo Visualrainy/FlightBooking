@@ -1,7 +1,9 @@
 package com.tw.booking.profile.service
 
 import com.tw.booking.order.repository.model.ResponseWrapper
+import com.tw.booking.profile.model.Consumption
 import com.tw.booking.profile.model.ConsumptionsStatus
+import com.tw.booking.profile.model.Flight
 import com.tw.booking.profile.repository.ProfileRepository
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -30,6 +32,27 @@ class ProfileServiceTest {
         runBlocking {
             val result = profileService.consumptions("1234")
             assertEquals(0, result.second?.size)
+            assertEquals(ConsumptionsStatus.SUCCESS, result.first)
+        }
+    }
+
+    @Test
+    fun should_return_multi_consumptions_when_id_is_123456() {
+        val firstConsumption = Consumption(
+            "111", 1000, "2022-03-13",
+            Flight("", "", "", "")
+        )
+        val secondConsumption = Consumption(
+            "222", 1200, "2022-03-16",
+            Flight("", "", "", "")
+        )
+
+        val consumptions = listOf(firstConsumption, secondConsumption)
+
+        coEvery { profileRepository.consumptions("123456") } returns ResponseWrapper(200, "success", consumptions)
+        runBlocking {
+            val result = profileService.consumptions("123456")
+            assertEquals(2, result.second?.size)
             assertEquals(ConsumptionsStatus.SUCCESS, result.first)
         }
     }

@@ -2,6 +2,7 @@ package com.tw.booking.profile.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.tw.booking.CoroutinesTestRule
+import com.tw.booking.profile.model.Consumption
 import com.tw.booking.profile.model.ConsumptionsStatus
 import com.tw.booking.profile.service.ProfileService
 import io.mockk.MockKAnnotations
@@ -37,7 +38,7 @@ class ConsumptionViewModelTest {
     @ExperimentalCoroutinesApi
     @Test
     fun should_return_empty_consumption_when_id_1234() {
-        coEvery { profileService.consumptions(any()) } returns Pair<ConsumptionsStatus, List<Any>?>(
+        coEvery { profileService.consumptions(any()) } returns Pair<ConsumptionsStatus, List<Consumption>?>(
             ConsumptionsStatus.SUCCESS,
             emptyList()
         )
